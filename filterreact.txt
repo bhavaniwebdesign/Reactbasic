@@ -1,0 +1,61 @@
+const HeartShape=()=><span>&hearts;</span>
+const Button=(props)=><button {...props}>{props.children}</button>
+
+class HelloMessage extends React.Component {
+
+constructor(props)
+{
+super(props)
+this.state={name : 0,
+search: "",
+items:[{name:"icecream"},{name :"coconutwater"},{name:"water"}]
+}
+this.handleClick=this.handleClick.bind(this);
+this.handleList=this.handleList.bind(this);
+this.handleSearch=this.handleSearch.bind(this);
+
+
+
+}
+handleClick(e)
+{
+this.setState((prevState) => ({name : prevState.name + 1}))
+}
+
+handleList(item)
+{
+return(
+<li key={item.name}>{item.name}</li>
+)
+}
+handleSearch(e)
+{
+
+this.setState({search : e.target.value})
+console.log(this.state.search);
+}
+  render() {
+      let items=this.state.items.filter(item => item.name.indexOf(this.state.search) !== -1 )
+
+    return (
+      <div>
+        Hello {this.props.name}
+        <Button onClick={this.handleClick} style={{color: 'red',padding:'20px'}}>click me<HeartShape/></Button>
+        <br/>
+        {this.state.name}
+        <input type="text" value={this.state.search} onChange=
+        {(e) =>this.handleSearch(e)}/>
+        <ul>
+        {items.map(this.handleList)
+     }
+     
+        </ul>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(
+  <HelloMessage name="Taylor" />,
+  mountNode
+);
